@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: java-devops-app
+  labels:
+    app: java-devops-app
+
+spec:
+  containers:
+    - name: java-devops-app
+      image: suresh2898/java-devops-app:1.0
+      ports:
+        - containerPort: 8080
+        
