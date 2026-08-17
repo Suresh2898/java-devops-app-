@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: java-devops-app-replicaset
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: java-devops-app
+
+  template:
+    metadata:
+      labels:
+        app: java-devops-app
+
+    spec:
+      containers:
+        - name: java-devops-app-container
+          image: suresh2898/java-devops-app:1.0
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - containerPort: 8080
