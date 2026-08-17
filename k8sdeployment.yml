@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: java-devops-app-deployment
+  labels:
+    app: java-devops-app
+
+spec:
+  replicas: 2
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+
+  selector:
+    matchLabels:
+      app: java-devops-app
+
+  template:
+    metadata:
+      labels:
+        app: java-devops-app
+
+    spec:
+      containers:
+        - name: java-devops-app-container
+          image: suresh2898/java-devops-app:1.0
+          imagePullPolicy: IfNotPresent
+
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+
+---
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: java-devops-app-service
+
+spec:
+  type: LoadBalancer
+
+  selector:
+    app: java-devops-app
+
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
